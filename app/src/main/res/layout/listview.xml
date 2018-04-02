@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TwoLineListItem
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/ListView"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_below="@+id/TabHost"
+    tools:showIn="@layout/content_main">
+
+
+    <TextView
+        android:id="@+id/flightName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:text="San Francisco"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Date"
+        android:id="@+id/flightDate"
+        android:layout_below="@+id/flightName"
+        android:layout_alignLeft="@+id/flightName"
+        android:layout_alignStart="@+id/flightName"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:id="@+id/clubCountry2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/flightDate"
+        android:layout_alignBottom="@+id/flightDate"
+        android:layout_marginLeft="13dp"
+        android:layout_marginStart="13dp"
+        android:layout_toEndOf="@+id/flightDate"
+        android:layout_toRightOf="@+id/flightDate"
+        android:text="Time"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+    <Button
+        android:id="@+id/reservedButton"
+        android:layout_width="40dp"
+        android:layout_height="70dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:text="R" />
+
+</TwoLineListItem>
