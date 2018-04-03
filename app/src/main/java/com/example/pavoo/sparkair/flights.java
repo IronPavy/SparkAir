@@ -11,6 +11,7 @@ public class flights extends SugarRecord {
     String time2;
     String place1;
     String place2;
+    String notes;
     int spots;
     float price;
 
@@ -18,18 +19,24 @@ public class flights extends SugarRecord {
 
     }
 
-    public flights(String name, String time1, String time2, String place1, String place2, int spots, float price) {
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public flights(String name, String time1, String time2, String place1, String place2, String notes, int spots, float price) {
         this.name = name;
         this.time1 = time1;
         this.time2 = time2;
         this.place1 = place1;
         this.place2 = place2;
+        this.notes = notes;
         this.spots = spots;
-        this.price = price;
-    }
 
-    public List<userflight> getUserFlights(){
-        return userflight.find(userflight.class, "flight = ?", String.valueOf(this.getId()));
+        this.price = price;
     }
 
     public String getName() {

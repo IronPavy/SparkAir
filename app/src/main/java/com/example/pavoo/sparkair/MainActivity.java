@@ -2,11 +2,10 @@ package com.example.pavoo.sparkair;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,6 +16,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
+
 
 import com.orm.SugarContext;
 
@@ -24,28 +26,65 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Button reserveButton;
+    public FlightListAdapter flightListAdapter;
 
+    ListView maLV;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SugarContext.init(this);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        reserveButton = findViewById(R.id.reservedButton);
 
+        reserveButton = findViewById(R.id.reservedButton);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText("Pub/Sub"));
+        tabLayout.addTab(tabLayout.newTab().setText("Presence"));
+        tabLayout.addTab(tabLayout.newTab().setText("Multi"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        flightListAdapter = new FlightListAdapter(getApplicationContext());
+
+        maLV = findViewById(R.id.maLV);
+        maLV.setAdapter(flightListAdapter);
 
         //Ovo je proba za button, da ode na Login kad kliknes R(reserve
         //a trebalo bi provjerit jel korisnik logiran, ako nije onda nek ide, ako je onda da ostane tu i iskoci alertdialog
         //koji imas tu kod
+/*
         reserveButton.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
+             AlertDialog.Builder builder;
+             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                 builder = new AlertDialog.Builder( MainActivity.this, android.R.style.Theme_Material_Dialog_Alert);
+             } else {
+                 builder = new AlertDialog.Builder(MainActivity.this);
+             }
+             builder.setTitle("Delete entry")
+                     .setMessage("Are you sure you want to delete this entry?")
+                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                         public void onClick(DialogInterface dialog, int which) {
+                             reserveButton.setBackgroundColor(getApplication().getResources().getColor(R.color.colorPrimaryDark));
+                             Toast.makeText(MainActivity.this, "Svaka cast", Toast.LENGTH_SHORT).show();
+                         }
+                     })
+                     .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                         public void onClick(DialogInterface dialog, int which) {
+                             // do nothing
+                         }
+                     })
+                     .setIcon(android.R.drawable.ic_dialog_alert)
+                     .show();
+
+
+
              Intent i = new Intent(MainActivity.this, LoginActivity.class);
              startActivity(i);
          }
         });
 
-
+*/
 
         // builder.setMessage("Are you sure?")
         //   .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -125,17 +164,17 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_pocetna) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_futureFlights) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_exFlights) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_kontakt) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_login) {
+
+        } else if (id == R.id.nav_logout) {
 
         }
 

@@ -1,6 +1,8 @@
 package com.example.pavoo.sparkair;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -46,9 +48,19 @@ public class usernakonlogina extends AppCompatActivity {
         avatarurl = user.getAvatar();
         */
 
-        if(user.getAdmin()==1) { //Gornje za admina, donje za korisnika
+        if(user.getAdmin()==1) { //Gornje za admina, donje za korisnika, to je to u biti
 
             tvnakonlogina3.setText("ADMINE ZMAJU");
+            FloatingActionButton fab = findViewById(R.id.actionButton);
+            fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
+                         .setAction("Action", null).show();
+                Intent i = new Intent(usernakonlogina.this, DodavanjeLetova.class);
+                startActivity(i);
+                }
+             });
 
         }else{
 

@@ -51,12 +51,12 @@ public class LoginActivity extends AppCompatActivity {
         }
         sf = new setFlights(this);
         SharedPreferences preferences2 = PreferenceManager.getDefaultSharedPreferences(this);
-        String store2 = preferences.getString("letovi1", "");
+        String store2 = preferences.getString("letovii", "");
         if(store2.equalsIgnoreCase(""))
         {
             sf.makeFlights();
             SharedPreferences.Editor editor = preferences2.edit();
-            editor.putString("letovi1","Data is stored");
+            editor.putString("letovii", "Data is stored");
             editor.commit();
         }
 
