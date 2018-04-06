@@ -1,8 +1,6 @@
 package com.example.pavoo.sparkair;
 
-
 import com.orm.SugarRecord;
-
 import java.util.List;
 
 public class flights extends SugarRecord {
@@ -35,8 +33,11 @@ public class flights extends SugarRecord {
         this.place2 = place2;
         this.notes = notes;
         this.spots = spots;
-
         this.price = price;
+    }
+
+    public List<userflight> getStudentSubjects(){
+        return userflight.find(userflight.class, "subject = ?", String.valueOf(this.getId()));
     }
 
     public String getName() {

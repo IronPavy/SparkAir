@@ -5,24 +5,17 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.orm.SugarContext;
-
 import java.util.List;
-
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
 
 public class LoginActivity extends AppCompatActivity {
 
     Button login, register;
     EditText emailText, passText;
-    public GetUsersFromJSON g;
-    public setFlights sf;
     public int id;
     public String email, password;
 
@@ -37,37 +30,23 @@ public class LoginActivity extends AppCompatActivity {
         emailText = findViewById(R.id.emailText);
         passText = findViewById(R.id.passText);
 
-
-
-        g = new GetUsersFromJSON(this);
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String store = preferences.getString("storred", "");
-        if(store.equalsIgnoreCase(""))
-        {
-            g.getData();
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putString("storred","Data is stored");
-            editor.commit();
-        }
-        sf = new setFlights(this);
-        SharedPreferences preferences2 = PreferenceManager.getDefaultSharedPreferences(this);
-        String store2 = preferences.getString("letovii", "");
-        if(store2.equalsIgnoreCase(""))
-        {
-            sf.makeFlights();
-            SharedPreferences.Editor editor = preferences2.edit();
-            editor.putString("letovii", "Data is stored");
-            editor.commit();
-        }
-
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if( !passText.getText().toString().equals("") && !emailText.getText().toString().equals("")){ //Lozinka i korisnicko moraju biti popunjeni
                     if(checkLogin()==true){
-                        Intent i = new Intent(LoginActivity.this, usernakonlogina.class);
-                        i.putExtra("id", id);
-                        startActivity(i);
+                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
+                        String store = preferences.getString("lllogin", "");
+                        if(store.equalsIgnoreCase(""))
+                        {
+                            SharedPreferences.Editor editor = preferences.edit();
+                            editor.putString("lllogin",""+id);
+                            editor.commit();
+                        }
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.putExtra("id", id);
+                        startActivity(intent);
                     }else{
                         Toast.makeText(LoginActivity.this, "Korisničko ime/lozinka ne postoji/netocno.", Toast.LENGTH_SHORT).show();
                         passText.setText("");
