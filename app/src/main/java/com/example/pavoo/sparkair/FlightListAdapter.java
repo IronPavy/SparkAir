@@ -88,6 +88,7 @@ public class FlightListAdapter extends BaseAdapter {
             public void onClick(View view) {
                 Intent i = new Intent(context, StartingActivity.class);
                 i.putExtra("id", position);
+                i.putExtra("userid", id);
                 context.startActivity(i);
             }
         });
@@ -132,15 +133,20 @@ public class FlightListAdapter extends BaseAdapter {
                             Intent j = new Intent(context, LoginActivity.class);
                             context.startActivity(j);
                         } else {
-                            Intent j = new Intent(context, usernakonlogina.class);
-                            usersugar user = usersugar.findById(usersugar.class, id);
-                            flights flight = flights.findById(flights.class, position + 1);
-                            userflight uf = new userflight(user, flight);
-                            flight.spots++;
-                            uf.save();
-                            j.putExtra("id", id);
-                            isMarked.setBackgroundColor(Color.RED);
-                            context.startActivity(j);
+                            if(flights.findById(flights.class, position+1).getSpots()>=5){
+                                Toast.makeText(context, "PREVISE KORISNIKA SE PRIJAVILO ZA OVAJ LET",Toast.LENGTH_SHORT).show();
+                            }else {
+                                Intent j = new Intent(context, usernakonlogina.class);
+                                usersugar user = usersugar.findById(usersugar.class, id);
+                                flights flight = flights.findById(flights.class, position + 1);
+                                userflight uf = new userflight(user, flight);
+                                uf.save();
+                                flight.spots++;
+                                flight.save();
+                                j.putExtra("id", id);
+                                isMarked.setBackgroundColor(Color.RED);
+                                context.startActivity(j);
+                            }
                         }
                     }
                 });
@@ -167,7 +173,8 @@ public class FlightListAdapter extends BaseAdapter {
     public void userflightDelete(long ppposition){
         flights flight = userflight.findById(userflight.class, ppposition).getFlight();
         userflight.delete(userflight.findById(userflight.class, ppposition));
-        flight.setSpots(flight.spots-1);
+        flight.spots--;
+        flight.save();
         Toast.makeText(context, "Izbrisan let!", Toast.LENGTH_SHORT).show();
         notifyDataSetChanged();
     }

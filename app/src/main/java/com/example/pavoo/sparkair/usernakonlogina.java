@@ -60,20 +60,20 @@ public class usernakonlogina extends AppCompatActivity {
 
         if(user.getAdmin()==1) { //Gornje za admina, donje za korisnika, to je to u biti
 
-            tvnakonlogina3.setText("ADMINE ZMAJU");
+            tvnakonlogina3.setText("Admin");
             FloatingActionButton fab = findViewById(R.id.actionButton);
             fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
-                         .setAction("Action", null).show();
                 Intent i = new Intent(usernakonlogina.this, DodavanjeLetova.class);
                 startActivity(i);
                 }
              });
 
         }else{
-            tvnakonlogina3.setText("OBICAN SMRTNIK");
+            tvnakonlogina3.setText("Obican korisnik");
+            FloatingActionButton fab = findViewById(R.id.actionButton);
+            fab.setVisibility(View.INVISIBLE);
         }
     }
 }
